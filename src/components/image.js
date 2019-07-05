@@ -10,6 +10,7 @@ const Image = props => {
       images: allFile {
         edges {
           node {
+            absolutePath
             relativePath
             name
             childImageSharp {
@@ -24,11 +25,11 @@ const Image = props => {
   `)
 
   const image = data.images.edges.find(edge => {
-    return edge.node.relativePath === src
+    return edge.node.relativePath === src || edge.node.absolutePath === src
   })
 
   if (!image) {
-    return null
+    return <img src='' />
   }
 
   return <Img {...otherProps} fluid={image.node.childImageSharp.fluid} />
