@@ -19,7 +19,6 @@ export default function IssueTemplate({
       img: props => {
         const { src, ...otherProps } = props
         const _src = path.resolve(path.dirname(fileAbsolutePath), src)
-        console.log(_src)
         return <Image src={_src} {...otherProps} />
       },
     },
