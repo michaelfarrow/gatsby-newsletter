@@ -24,7 +24,6 @@ const Image = props => {
   `)
 
   const image = data.images.edges.find(edge => {
-    console.log(edge.node.relativePath)
     return edge.node.relativePath === src
   })
 
