@@ -20,10 +20,8 @@ export default function IssueTemplate({
         const { src, ...otherProps } = props
         const _src = path.resolve(path.dirname(fileAbsolutePath), src)
         console.log(_src)
-        return (
-          <Image src={_src} {...otherProps} />
-        )
-      }
+        return <Image src={_src} {...otherProps} />
+      },
     },
   }).Compiler
   return (
