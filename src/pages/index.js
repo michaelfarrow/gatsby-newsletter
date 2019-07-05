@@ -13,7 +13,7 @@ const IndexPage = () => (
     <p>Now go build something great.</p>
     <Link href='https://google.co.uk'>Google</Link>
     <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image src='gatsby-astronaut.png'/>
+      <Image src='gatsby-astronaut.png' />
     </div>
     <Link href='/page-2/'>Go to page 2</Link>
   </Layout>
