@@ -32,7 +32,14 @@ const Image = props => {
     return <img alt='' {...otherProps} src='' />
   }
 
-  return <Img Tag='span' alt='' {...otherProps} fluid={image.node.childImageSharp.fluid} />
+  return (
+    <Img
+      Tag='span'
+      alt=''
+      {...otherProps}
+      fluid={image.node.childImageSharp.fluid}
+    />
+  )
 }
 
 export default Image
