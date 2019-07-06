@@ -1,4 +1,4 @@
-const PATH_PREFIX = process.env.PATH_PREFIX || 'gatsby-newsletter'
+const PATH_PREFIX = process.env.PATH_PREFIX !== undefined ? process.env.PATH_PREFIX : 'gatsby-newsletter'
 
 module.exports = {
   pathPrefix: PATH_PREFIX,
