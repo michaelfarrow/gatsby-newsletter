@@ -1,14 +1,24 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-
-import { addDate } from '../lib/issue'
-import { DATE_FORMAT_FRIENDLY } from '../lib/date'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
 import rehypeReact from 'rehype-react'
-import Link from '../components/link'
-import Image from '../components/image'
 import path from 'path'
+import { flatten } from 'lodash'
+
+import { addDate } from '@lib/issue'
+import { DATE_FORMAT_FRIENDLY } from '@lib/date'
+import Layout from '@components/layout'
+import SEO from '@components/seo'
+import Link from '@components/link'
+import Image from '@components/image'
+
+const getNodeText = node => {
+  return flatten(
+    node.children.map(child => {
+      if (child.type === 'text') return child.value
+      return getNodeText(child)
+    })
+  ).join('')
+}
 
 export default function IssueTemplate({ data }) {
   const { issue } = data
@@ -16,6 +26,8 @@ export default function IssueTemplate({ data }) {
   const { fileAbsolutePath, headings, htmlAst, timeToRead, date } = _issue
   const h1s = headings.filter(heading => heading.depth === 1)
   const title = h1s.length ? h1s[0].value : 'Creative Technology Roundup'
+  const paragraphs = htmlAst.children.filter(child => child.tagName === 'p')
+  const exerpt = getNodeText(paragraphs[0])
   const renderAst = new rehypeReact({
     createElement: React.createElement,
     components: {
@@ -30,7 +42,7 @@ export default function IssueTemplate({ data }) {
   }).Compiler
   return (
     <Layout>
-      <SEO title={title} />
+      <SEO title={title} description={exerpt} />
       <div className='blog-post-container'>
         <div className='blog-post'>
           <h1>{title}</h1>
