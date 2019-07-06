@@ -23,7 +23,7 @@ module.exports = {
       options: {
         name: 'gatsby-starter-default',
         short_name: 'starter',
-        start_url: `/${PATH_PREFIX.length ? `${PATH_PREFIX}/`,
+        start_url: `/${PATH_PREFIX.length ? `${PATH_PREFIX}/` : '',
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
