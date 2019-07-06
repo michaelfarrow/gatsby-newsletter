@@ -8,6 +8,16 @@ module.exports = {
     author: '@gatsbyjs'
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-module-resolver',
+      options: {
+        root: './src',
+        aliases: {
+          '@lib': './lib',
+          '@components': './components'
+        }
+      }
+    },
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',

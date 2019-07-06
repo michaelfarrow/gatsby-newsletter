@@ -2,12 +2,12 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { orderBy } from 'lodash'
 
-import { addDates } from '../lib/issue'
-import { DATE_FORMAT_FRIENDLY } from '../lib/date'
-import Layout from '../components/layout'
-import Image from '../components/image'
-import SEO from '../components/seo'
-import Link from '../components/link'
+import { addDates } from '@lib/issue'
+import { DATE_FORMAT_FRIENDLY } from '@lib/date'
+import Layout from '@components/layout'
+import Image from '@components/image'
+import SEO from '@components/seo'
+import Link from '@components/link'
 
 const IndexPage = ({ data }) => {
   const { issues } = data

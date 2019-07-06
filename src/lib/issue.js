@@ -1,4 +1,4 @@
-import date, { DATE_REGEX } from './date'
+import date, { DATE_REGEX } from '@lib/date'
 
 const dateRegex = new RegExp(`issues/(${DATE_REGEX})\\.md$`)
 
