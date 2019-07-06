@@ -1,5 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+
+import { addDate } from '../lib/issue'
+import { DATE_FORMAT_FRIENDLY } from '../lib/date'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import rehypeReact from 'rehype-react'
@@ -8,15 +11,11 @@ import Image from '../components/image'
 import path from 'path'
 
 export default function IssueTemplate({ data }) {
-  const { markdownRemark } = data
-  const {
-    fileAbsolutePath,
-    frontmatter,
-    headings,
-    htmlAst,
-    timeToRead,
-  } = markdownRemark
+  const { issue } = data
+  const _issue = addDate(issue)
+  const { fileAbsolutePath, headings, htmlAst, timeToRead, date } = _issue
   const h1s = headings.filter(heading => heading.depth === 1)
+  const title = h1s.length ? h1s[0].value : 'Creative Technology Roundup'
   const renderAst = new rehypeReact({
     createElement: React.createElement,
     components: {
@@ -31,11 +30,11 @@ export default function IssueTemplate({ data }) {
   }).Compiler
   return (
     <Layout>
-      <SEO title={frontmatter.title} />
+      <SEO title={title} />
       <div className='blog-post-container'>
         <div className='blog-post'>
-          <h1>{h1s.length ? h1s[0].value : 'Creative Technology Roundup'}</h1>
-          <h2>{frontmatter.date}</h2>
+          <h1>{title}</h1>
+          <h2>{date.format(DATE_FORMAT_FRIENDLY)}</h2>
           <p>{timeToRead} min read</p>
           <div className='blog-post-content'>{renderAst(htmlAst)}</div>
         </div>
@@ -46,17 +45,13 @@ export default function IssueTemplate({ data }) {
 
 export const pageQuery = graphql`
   query($fileAbsolutePath: String!) {
-    markdownRemark(fileAbsolutePath: { eq: $fileAbsolutePath }) {
+    issue: markdownRemark(fileAbsolutePath: { eq: $fileAbsolutePath }) {
       fileAbsolutePath
       headings {
         depth
         value
       }
       htmlAst
-      frontmatter {
-        date(formatString: "MMMM DD, YYYY")
-        title
-      }
       timeToRead
     }
   }
