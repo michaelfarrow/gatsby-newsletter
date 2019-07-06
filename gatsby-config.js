@@ -1,11 +1,16 @@
 const PATH_PREFIX = process.env.PATH_PREFIX !== undefined ? process.env.PATH_PREFIX : 'gatsby-newsletter'
 
+const TITLE = 'Creative Technology Roundup'
+const TITLE_SHORT = 'CTR'
+const DESCRIPTION = 'Sights and sounds from the Creative Technology world'
+const AUTHOR = '@MichaelFarrow'
+
 module.exports = {
   pathPrefix: PATH_PREFIX,
   siteMetadata: {
-    title: 'Gatsby Default Starter',
-    description: 'Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.',
-    author: '@gatsbyjs'
+    title: TITLE,
+    description: DESCRIPTION,
+    author: AUTHOR
   },
   plugins: [
     {
@@ -31,8 +36,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
+        name: TITLE,
+        short_name: TITLE_SHORT,
         start_url: `/${PATH_PREFIX.length ? `${PATH_PREFIX}/` : ''}`,
         background_color: '#663399',
         theme_color: '#663399',
