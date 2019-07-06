@@ -1,5 +1,7 @@
+const PATH_PREFIX = 'gatsby-newsletter'
+
 module.exports = {
-  pathPrefix: 'gatsby-newsletter',
+  pathPrefix: PATH_PREFIX,
   siteMetadata: {
     title: 'Gatsby Default Starter',
     description: 'Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.',
@@ -32,7 +34,7 @@ module.exports = {
       resolve: 'gatsby-plugin-offline',
       options: {
         modifyUrlPrefix: {
-          '/': `${pathPrefix}/`
+          '/': `${PATH_PREFIX}/`
         }
       }
     },
