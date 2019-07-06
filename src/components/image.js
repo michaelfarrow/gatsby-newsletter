@@ -29,10 +29,10 @@ const Image = props => {
   })
 
   if (!image) {
-    return <img src='' />
+    return <img alt='' {...otherProps} src='' />
   }
 
-  return <Img {...otherProps} fluid={image.node.childImageSharp.fluid} />
+  return <Img alt='' {...otherProps} fluid={image.node.childImageSharp.fluid} />
 }
 
 export default Image
