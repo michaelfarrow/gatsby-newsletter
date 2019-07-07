@@ -5,7 +5,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 
 import { WithImage } from '@components/image'
 
-const DEFAULT_IMAGE = 'gatsby-icon.png'
+const DEFAULT_IMAGE = 'gatsby-social.png'
 
 function SEO({ description, lang, meta, title, type, image }) {
   const { site } = useStaticQuery(
