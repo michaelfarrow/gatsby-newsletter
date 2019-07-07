@@ -2,9 +2,35 @@ import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 
-const Image = props => {
-  const { src, ...otherProps } = props
+function findImage(images, src) {
+  return images.edges.find(edge => {
+    return edge.node.relativePath === src || edge.node.absolutePath === src
+  })
+}
 
+export function getImageSocial(src) {
+  const data = useStaticQuery(graphql`
+    query {
+      images: allFile {
+        edges {
+          node {
+            absolutePath
+            relativePath
+            name
+            childImageSharp {
+              fixed(width: 600, height: 600) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+  return findImage(data.images, src)
+}
+
+export function getImage(src) {
   const data = useStaticQuery(graphql`
     query {
       images: allFile {
@@ -23,10 +49,12 @@ const Image = props => {
       }
     }
   `)
+  return findImage(data.images, src)
+}
 
-  const image = data.images.edges.find(edge => {
-    return edge.node.relativePath === src || edge.node.absolutePath === src
-  })
+const Image = props => {
+  const { src, ...otherProps } = props
+  const image = getImage(src)
 
   if (!image) {
     return <img alt='' {...otherProps} src='' />

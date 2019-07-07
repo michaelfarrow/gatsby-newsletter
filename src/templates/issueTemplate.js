@@ -9,7 +9,7 @@ import { DATE_FORMAT_FRIENDLY } from '@lib/date'
 import Layout from '@components/layout'
 import SEO from '@components/seo'
 import Link from '@components/link'
-import Image from '@components/image'
+import Image, { getImageSocial } from '@components/image'
 
 const getNodeText = node => {
   return flatten(
@@ -20,6 +20,16 @@ const getNodeText = node => {
   ).join('')
 }
 
+const findImages = node => {
+  const children = node.children || []
+  return flatten(
+    children.map(child => {
+      if (child.tagName === 'img') return child
+      return findImages(child)
+    })
+  )
+}
+
 export default function IssueTemplate({ data }) {
   const { issue } = data
   const _issue = addDate(issue)
@@ -28,21 +38,29 @@ export default function IssueTemplate({ data }) {
   const title = h1s.length ? h1s[0].value : 'Creative Technology Roundup'
   const paragraphs = htmlAst.children.filter(child => child.tagName === 'p')
   const exerpt = getNodeText(paragraphs[0])
+  const getImageSrc = src => {
+    return path.resolve(path.dirname(fileAbsolutePath), src)
+  }
+  const images = findImages(htmlAst)
+  let image = null
+  if (images.length) {
+    image = getImageSocial(getImageSrc(images[0].properties.src))
+    if (image) image = image.node.childImageSharp.fixed.src
+  }
   const renderAst = new rehypeReact({
     createElement: React.createElement,
     components: {
       a: Link,
       img: props => {
         const { src, ...otherProps } = props
-        const _src = path.resolve(path.dirname(fileAbsolutePath), src)
-        return <Image src={_src} {...otherProps} />
+        return <Image src={getImageSrc(src)} {...otherProps} />
       },
       h1: props => null,
     },
   }).Compiler
   return (
     <Layout>
-      <SEO title={title} description={exerpt} type='article' />
+      <SEO title={title} description={exerpt} image={image} type='article' />
       <div className='blog-post-container'>
         <div className='blog-post'>
           <h1>{title}</h1>
