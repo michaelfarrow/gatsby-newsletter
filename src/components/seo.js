@@ -9,6 +9,7 @@ function SEO({ description, lang, meta, title, type, image }) {
       query {
         site {
           siteMetadata {
+            siteBaseUrl
             title
             description
             author
@@ -18,6 +19,7 @@ function SEO({ description, lang, meta, title, type, image }) {
     `
   )
 
+  const siteBaseUrl = site.siteMetadata.siteBaseUrl || ''
   const metaDescription = description || site.siteMetadata.description
   const metaType = type || 'website'
 
@@ -26,7 +28,7 @@ function SEO({ description, lang, meta, title, type, image }) {
   if (image) {
     optional.push({
       property: 'og:image',
-      content: image,
+      content: `${siteBaseUrl}${image}`,
     })
   }
 

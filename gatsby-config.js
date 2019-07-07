@@ -5,10 +5,12 @@ const TITLE_SHORT = 'CTR'
 const DESCRIPTION = 'Sights and sounds from the Creative Technology world'
 const AUTHOR = '@MichaelFarrow'
 const UI_COLOUR = '#000000'
+const SITE_BASE_URL = process.env.SITE_BASE_URL || ''
 
 module.exports = {
   pathPrefix: PATH_PREFIX,
   siteMetadata: {
+    siteBaseUrl: SITE_BASE_URL,
     title: TITLE,
     description: DESCRIPTION,
     author: AUTHOR
