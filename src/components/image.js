@@ -4,7 +4,7 @@ import Img from 'gatsby-image'
 
 function findImage(data, src, type = 'images') {
   const _data = data ? data[type] : null
-  if(!_data) return null
+  if (!_data) return null
   return _data.edges.find(edge => {
     return edge.node.relativePath === src || edge.node.absolutePath === src
   })

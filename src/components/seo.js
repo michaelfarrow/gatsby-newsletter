@@ -25,7 +25,7 @@ function SEO({ description, lang, meta, title, type, image }) {
 
   if (image) {
     optional.push({
-      name: 'og:image',
+      property: 'og:image',
       content: image,
     })
   }
