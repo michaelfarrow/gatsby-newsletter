@@ -2,35 +2,16 @@ import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 
-function findImage(images, src) {
-  return images.edges.find(edge => {
+function findImage(data, src, type = 'images') {
+  const _data = data ? data[type] : null
+  if(!_data) return null
+  return _data.edges.find(edge => {
     return edge.node.relativePath === src || edge.node.absolutePath === src
   })
 }
 
-export function getImageSocial(src) {
-  const data = useStaticQuery(graphql`
-    query {
-      images: allFile {
-        edges {
-          node {
-            absolutePath
-            relativePath
-            name
-            childImageSharp {
-              fixed(width: 600, height: 600) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
-  return findImage(data.images, src)
-}
-
-export function getImage(src) {
+export const WithImage = props => {
+  const { src, children, type } = props
   const data = useStaticQuery(graphql`
     query {
       images: allFile {
@@ -47,26 +28,45 @@ export function getImage(src) {
           }
         }
       }
+      imagesSocial: allFile {
+        edges {
+          node {
+            absolutePath
+            relativePath
+            name
+            childImageSharp {
+              fixed(width: 600, height: 600) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
+      }
     }
   `)
-  return findImage(data.images, src)
+  const image = findImage(data, src, type)
+  return children(image)
 }
 
 const Image = props => {
   const { src, ...otherProps } = props
-  const image = getImage(src)
-
-  if (!image) {
-    return <img alt='' {...otherProps} src='' />
-  }
 
   return (
-    <Img
-      Tag='span'
-      alt=''
-      {...otherProps}
-      fluid={image.node.childImageSharp.fluid}
-    />
+    <WithImage src={src}>
+      {image => {
+        if (!image) {
+          return <img alt='' {...otherProps} src='' />
+        }
+        return (
+          <Img
+            Tag='span'
+            alt=''
+            {...otherProps}
+            fluid={image.node.childImageSharp.fluid}
+          />
+        )
+      }}
+    </WithImage>
   )
 }
 

@@ -9,7 +9,7 @@ import { DATE_FORMAT_FRIENDLY } from '@lib/date'
 import Layout from '@components/layout'
 import SEO from '@components/seo'
 import Link from '@components/link'
-import Image, { getImageSocial } from '@components/image'
+import Image, { WithImage } from '@components/image'
 
 const getNodeText = node => {
   return flatten(
@@ -39,13 +39,12 @@ export default function IssueTemplate({ data }) {
   const paragraphs = htmlAst.children.filter(child => child.tagName === 'p')
   const exerpt = getNodeText(paragraphs[0])
   const getImageSrc = src => {
-    return path.resolve(path.dirname(fileAbsolutePath), src)
+    return src ? path.resolve(path.dirname(fileAbsolutePath), src) : ''
   }
   const images = findImages(htmlAst)
   let image = null
   if (images.length) {
-    image = getImageSocial(getImageSrc(images[0].properties.src))
-    if (image) image = image.node.childImageSharp.fixed.src
+    image = images[0].properties.src
   }
   const renderAst = new rehypeReact({
     createElement: React.createElement,
@@ -60,15 +59,24 @@ export default function IssueTemplate({ data }) {
   }).Compiler
   return (
     <Layout>
-      <SEO title={title} description={exerpt} image={image} type='article' />
-      <div className='blog-post-container'>
-        <div className='blog-post'>
-          <h1>{title}</h1>
-          <h2>{date.format(DATE_FORMAT_FRIENDLY)}</h2>
-          <p>{timeToRead} min read</p>
-          <div className='blog-post-content'>{renderAst(htmlAst)}</div>
-        </div>
-      </div>
+      <WithImage src={getImageSrc(image)} type='imagesSocial'>
+        {image => {
+          const socialImage = image ? image.node.childImageSharp.fixed.src : undefined
+          return (
+            <>
+              <SEO title={title} description={exerpt} image={socialImage} type='article' />
+              <div className='blog-post-container'>
+                <div className='blog-post'>
+                  <h1>{title}</h1>
+                  <h2>{date.format(DATE_FORMAT_FRIENDLY)}</h2>
+                  <p>{timeToRead} min read</p>
+                  <div className='blog-post-content'>{renderAst(htmlAst)}</div>
+                </div>
+              </div>
+            </>
+          )
+        }}
+      </WithImage>
     </Layout>
   )
 }
