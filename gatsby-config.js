@@ -4,6 +4,7 @@ const TITLE = 'Creative Technology Roundup'
 const TITLE_SHORT = 'CTR'
 const DESCRIPTION = 'Sights and sounds from the Creative Technology world'
 const AUTHOR = '@MichaelFarrow'
+const UI_COLOUR = '#000000'
 
 module.exports = {
   pathPrefix: PATH_PREFIX,
@@ -39,8 +40,8 @@ module.exports = {
         name: TITLE,
         short_name: TITLE_SHORT,
         start_url: `/${PATH_PREFIX.length ? `${PATH_PREFIX}/` : ''}`,
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: UI_COLOUR,
+        theme_color: UI_COLOUR,
         display: 'minimal-ui',
         icon: 'src/images/gatsby-icon.png' // This path is relative to the root of the site.
       }
