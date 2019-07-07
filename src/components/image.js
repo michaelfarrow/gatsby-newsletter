@@ -35,7 +35,7 @@ export const WithImage = props => {
             relativePath
             name
             childImageSharp {
-              fixed(width: 600, height: 600) {
+              fixed(width: 1200, height: 630) {
                 ...GatsbyImageSharpFixed
               }
             }
