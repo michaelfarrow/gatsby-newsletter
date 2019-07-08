@@ -22,16 +22,15 @@ exports.createPages = ({ actions, graphql }) => {
 
     return result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       createPage({
-        path: `/issue/${
-          node.fileAbsolutePath.substring(
-            (`${__dirname}/src/issues/`).length,
-            node.fileAbsolutePath.length - path.extname(node.fileAbsolutePath).length
-          )
-        }`,
+        path: `/issue/${node.fileAbsolutePath.substring(
+          `${__dirname}/src/issues/`.length,
+          node.fileAbsolutePath.length -
+            path.extname(node.fileAbsolutePath).length
+        )}`,
         component: issueTemplate,
         context: {
-          fileAbsolutePath: node.fileAbsolutePath
-        }
+          fileAbsolutePath: node.fileAbsolutePath,
+        },
       })
     })
   })

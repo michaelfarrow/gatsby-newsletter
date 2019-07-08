@@ -1,4 +1,7 @@
-const PATH_PREFIX = process.env.PATH_PREFIX !== undefined ? process.env.PATH_PREFIX : 'gatsby-newsletter'
+const PATH_PREFIX =
+  process.env.PATH_PREFIX !== undefined
+    ? process.env.PATH_PREFIX
+    : 'gatsby-newsletter'
 
 const TITLE = 'Creative Technology Roundup'
 const TITLE_SHORT = 'CTR'
@@ -13,7 +16,7 @@ module.exports = {
     siteBaseUrl: SITE_BASE_URL,
     title: TITLE,
     description: DESCRIPTION,
-    author: AUTHOR
+    author: AUTHOR,
   },
   plugins: [
     {
@@ -22,17 +25,17 @@ module.exports = {
         root: './src',
         aliases: {
           '@lib': './lib',
-          '@components': './components'
-        }
-      }
+          '@components': './components',
+        },
+      },
     },
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: `${__dirname}/src/images`
-      }
+        path: `${__dirname}/src/images`,
+      },
     },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
@@ -45,16 +48,16 @@ module.exports = {
         background_color: UI_COLOUR,
         theme_color: UI_COLOUR,
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png' // This path is relative to the root of the site.
-      }
+        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+      },
     },
     {
       resolve: 'gatsby-plugin-offline',
       options: {
         modifyUrlPrefix: {
-          '/': `${PATH_PREFIX}/`
-        }
-      }
+          '/': `${PATH_PREFIX}/`,
+        },
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -67,11 +70,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "YOUR_GOOGLE_ANALYTICS_TRACKING_ID"
-      }
-    }
+        trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID',
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // 'gatsby-plugin-offline'
-  ]
+  ],
 }
