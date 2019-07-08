@@ -28,8 +28,13 @@
     "rehype-react": "^3.1.0"
   },
   "devDependencies": {
+    "fs-extra": "^8.1.0",
+    "get-port": "^5.0.0",
     "gh-pages": "^2.0.1",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "promise.series": "^0.2.0",
+    "puppeteer": "^1.18.1",
+    "serve-handler": "^6.0.3"
   },
   "keywords": [
     "gatsby"
@@ -42,6 +47,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "output": "npm run build && node output",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "repository": {
