@@ -45,6 +45,7 @@ function SEO({ description, lang, meta, title, type, image }) {
         }
         return (
           <Helmet
+            defer={false} // TItle tag workaround https://github.com/nfl/react-helmet/issues/189
             htmlAttributes={{
               lang,
             }}

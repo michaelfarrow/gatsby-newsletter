@@ -1,14 +1,14 @@
-const PATH_PREFIX =
-  process.env.PATH_PREFIX !== undefined
-    ? process.env.PATH_PREFIX
-    : 'gatsby-newsletter'
-
 const TITLE = 'Creative Technology Roundup'
 const TITLE_SHORT = 'CTR'
 const DESCRIPTION = 'Sights and sounds from the Creative Technology world'
 const AUTHOR = '@MichaelFarrow'
 const UI_COLOUR = '#000000'
+
 const SITE_BASE_URL = process.env.SITE_BASE_URL || ''
+const PATH_PREFIX =
+  process.env.PATH_PREFIX !== undefined
+    ? process.env.PATH_PREFIX
+    : 'gatsby-newsletter'
 
 module.exports = {
   pathPrefix: PATH_PREFIX,
@@ -26,6 +26,7 @@ module.exports = {
         aliases: {
           '@lib': './lib',
           '@components': './components',
+          '@styles': './styles',
         },
       },
     },
@@ -37,6 +38,7 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    'gatsby-plugin-sass',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
@@ -48,7 +50,7 @@ module.exports = {
         background_color: UI_COLOUR,
         theme_color: UI_COLOUR,
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        icon: 'src/images/gatsby-icon.png',
       },
     },
     {
@@ -73,8 +75,5 @@ module.exports = {
         trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID',
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // 'gatsby-plugin-offline'
   ],
 }
