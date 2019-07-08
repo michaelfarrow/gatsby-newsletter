@@ -85,7 +85,8 @@ async function snapshot(port) {
   await promiseSeries(
     issues.map(issue => {
       return async () => {
-        return await snapshotIssue(port, page, issue)
+        await snapshotIssue(port, page, issue)
+        console.log(`Issue "${issue}" output`)
       }
     })
   )
