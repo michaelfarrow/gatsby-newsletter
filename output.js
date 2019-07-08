@@ -7,6 +7,8 @@ const promiseSeries = require('promise.series')
 
 const VIEWPORT_WIDTH = 900
 
+const OUTPUT_ALL = process.argv.includes('--all')
+
 const server = http.createServer((request, response) => {
   return handler(request, response, {
     public: './public',
@@ -46,7 +48,10 @@ async function snapshotIssue(port, page, issue) {
   const date = issue.match(/(.*?)\.md$/)[1]
   const outPath = `./pdf/${date}.pdf`
 
-  if (await fs.pathExists(outPath)) return
+  if (!OUTPUT_ALL && await fs.pathExists(outPath)) {
+    console.log(`Issue "${issue}" exists, didn't output`)
+    return
+  }
 
   await page.goto(`http://localhost:${port}/issue/${date}`, {
     waitUntil: 'networkidle0',
@@ -69,6 +74,8 @@ async function snapshotIssue(port, page, issue) {
     height: `${dimensions.height}px`,
     pageRanges: '1',
   })
+
+  console.log(`Issue "${issue}" output`)
 }
 
 async function snapshot(port) {
@@ -86,7 +93,6 @@ async function snapshot(port) {
     issues.map(issue => {
       return async () => {
         await snapshotIssue(port, page, issue)
-        console.log(`Issue "${issue}" output`)
       }
     })
   )
