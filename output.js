@@ -85,7 +85,7 @@ async function snapshot(port) {
   const page = await browser.newPage()
 
   await page.emulateMedia('print')
-  await page.setViewport({ width: VIEWPORT_WIDTH, height: 600 })
+  await page.setViewport({ width: VIEWPORT_WIDTH, height: 20000 })
 
   const issues = await getIssues()
 
