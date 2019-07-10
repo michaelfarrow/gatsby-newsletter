@@ -25,8 +25,26 @@ class Video extends React.Component {
     return (
       <>
         <Link className='video' {...this.props} onClick={this.openModal} />
-        <Modal isOpen={open} onRequestClose={this.closeModal}>
-          <OEmbed url={href} />
+        <Modal isOpen={open} onRequestClose={this.closeModal} showClose={false}>
+          <OEmbed url={href}>
+            {({ loading, children }) => {
+              if (loading) {
+                return (
+                  <>
+                    <p>Loading</p>
+                    <button onClick={this.closeModal}>Cancel</button>
+                  </>
+                )
+              } else {
+                return (
+                  <>
+                    <button onClick={this.closeModal}>Close</button>
+                    {children}
+                  </>
+                )
+              }
+            }}
+          </OEmbed>
         </Modal>
       </>
     )

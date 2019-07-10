@@ -48,7 +48,7 @@ async function snapshotIssue(port, page, issue) {
   const date = issue.match(/(.*?)\.md$/)[1]
   const outPath = `./pdf/${date}.pdf`
 
-  if (!OUTPUT_ALL && await fs.pathExists(outPath)) {
+  if (!OUTPUT_ALL && (await fs.pathExists(outPath))) {
     console.log(`Issue "${issue}" exists, didn't output`)
     return
   }

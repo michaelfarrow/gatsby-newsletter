@@ -1,5 +1,6 @@
 import React from 'react'
 import { get, CancelToken, isCancel } from 'axios'
+import { isFunction } from 'lodash'
 
 class OEmbed extends React.Component {
   state = {
@@ -70,6 +71,7 @@ class OEmbed extends React.Component {
   }
 
   render() {
+    const { children } = this.props
     const { loading, html, ratio, error } = this.state
     const classNames = ['oembed']
     if (loading) classNames.push('oembed--loading')
@@ -78,7 +80,7 @@ class OEmbed extends React.Component {
       styleInner.paddingTop = `${ratio * 100}%`
       classNames.push('oembed--responsive')
     }
-    return (
+    const _children = (
       <span className={classNames.join(' ')}>
         {loading ? (
           'Loading'
@@ -93,6 +95,9 @@ class OEmbed extends React.Component {
         )}
       </span>
     )
+    return isFunction(children)
+      ? children({ loading, children: _children })
+      : _children
   }
 }
 
